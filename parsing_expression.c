@@ -95,3 +95,34 @@ void infixToPrefix(char *exp, char *result) {
     infixToPostfix(exp, result);
     reverseString(result);
 }
+
+void prefixToInfix(char *exp, char *result) {
+    Stack s;
+    initialize(&s);
+    reverseString(exp);
+    for (int i = 0; exp[i]; i++) {
+        if (isalnum(exp[i])) {
+            char operand[2] = {exp[i], '\0'};
+            push(&s, operand);
+        } else {
+            char op1[MAX], op2[MAX], temp[MAX];
+            strcpy(op1, pop(&s));
+            strcpy(op2, pop(&s));
+            sprintf(temp, "(%s%c%s)", op1, exp[i], op2);
+            push(&s, temp);
+        }
+    }
+    strcpy(result, pop(&s));
+}
+
+void prefixToPostfix(char *exp, char *result) {
+    char temp[MAX];
+    prefixToInfix(exp, temp);
+    infixToPostfix(temp, result);
+}
+
+void postfixToPrefix(char *exp, char *result) {
+    char temp[MAX];
+    postfixToInfix(exp, temp);
+    infixToPrefix(temp, result);
+}
