@@ -126,3 +126,71 @@ void postfixToPrefix(char *exp, char *result) {
     postfixToInfix(exp, temp);
     infixToPrefix(temp, result);
 }
+
+// Fungsi untuk menangani konversi berdasarkan pilihan
+void handleConversion(int choice, char *expression, char *result) {
+    if (choice == 1) {
+        if (!isValidInfix(expression)) {
+            printf("Ekspresi yang Anda masukkan salah, masukkan kembali!\n");
+            return;
+        }
+        infixToPostfix(expression, result);
+    } else if (choice == 2) {
+        postfixToInfix(expression, result);
+    } else if (choice == 3) {
+        if (!isValidInfix(expression)) {
+            printf("Ekspresi yang Anda masukkan salah, masukkan kembali!\n");
+            return;
+        }
+        infixToPrefix(expression, result);
+    } else if (choice == 4) {
+        prefixToInfix(expression, result);
+    } else if (choice == 5) {
+        prefixToPostfix(expression, result);
+    } else if (choice == 6) {
+        postfixToPrefix(expression, result);
+    }
+    printf("Hasil: %s\n", result);
+}
+
+// Menu utama program
+void menu() {
+    char expression[MAX], result[MAX];
+    int choice;
+
+    while (1) {
+        printf("\nKonversi Ekspresi Aritmatika\n");
+        printf("1. Infix ke Postfix\n");
+        printf("2. Postfix ke Infix\n");
+        printf("3. Infix ke Prefix\n");
+        printf("4. Prefix ke Infix\n");
+        printf("5. Prefix ke Postfix\n");
+        printf("6. Postfix ke Prefix\n");
+        printf("7. Keluar\n");
+        printf("Pilihan: ");
+
+        if (scanf("%d", &choice) != 1) {
+            printf("Menu yang Anda pilih tidak valid, coba lagi.\n");
+            while (getchar() != '\n');  // Membersihkan buffer input
+            continue;
+        }
+
+        if (choice == 7) break;
+        if (choice < 1 || choice > 6) {
+            printf("Menu yang Anda pilih tidak terdaftar, coba lagi.\n");
+            continue;
+        }
+
+        getchar();
+        printf("Masukkan ekspresi: ");
+        fgets(expression, MAX, stdin);
+        expression[strcspn(expression, "\n")] = 0;
+
+        handleConversion(choice, expression, result);
+    }
+}
+
+int main() {
+    menu();
+    return 0;
+}
