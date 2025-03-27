@@ -19,7 +19,7 @@ Cara Menjalankan Program
 
 2. Kompilasi Program
 
-Gunakan GCC Compiler untuk mengompilasi program
+Gunakan GCC Compiler untuk mengompilasi program ini
 
 3. Jalankan Program
 
